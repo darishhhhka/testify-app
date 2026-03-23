@@ -1,0 +1,10 @@
+.question {
+  background-color: var(--light-grey);
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.title {
+  font-weight: normal;
+  font-size: 24px;
+}

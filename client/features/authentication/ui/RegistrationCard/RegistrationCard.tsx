@@ -1,0 +1,89 @@
+import { Controller, useForm } from 'react-hook-form';
+import Input from '../../../../app/src/components/Input/Input';
+import Button from '../../../../app/src/components/Button/Button';
+import Form from '../Form/Form';
+import { Registration } from '../../model/types';
+import { useAuth } from '../../model/useAuth';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { shemaRegister } from '../../model/shema';
+import ErrorMessage from '@/app/src/components/Error/Error';
+
+export default function RegistrationCard() {
+  const {
+    control,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<Registration>({
+    resolver: yupResolver(shemaRegister),
+    defaultValues: {
+      login: '',
+      password: '',
+      confirmPassword: '',
+      role: undefined,
+    },
+  });
+
+  const submit = useAuth();
+
+  const submitHandle = async (data: Registration) => {
+    try {
+      await submit(data, 'register');
+    } catch (error) {
+      if (typeof error === 'string') {
+        setError('root', { type: 'validation', message: error });
+      } else {
+        setError('root', { message: 'Неизветсная ошибка' });
+      }
+    }
+  };
+
+  return (
+    <Form type="registration" onSubmit={handleSubmit(submitHandle)}>
+      <Controller
+        name="login"
+        control={control}
+        render={({ field }) => (
+          <Input label="Логин" id="login" placeholder="Login" type="text" {...field} />
+        )}
+      />
+      {errors.login && <ErrorMessage>{errors.login.message}</ErrorMessage>}
+
+      <Controller
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <Input label="Пароль" id="password" placeholder="Password" type="password" {...field} />
+        )}
+      />
+      {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+
+      <Controller
+        name="confirmPassword"
+        control={control}
+        render={({ field }) => (
+          <Input
+            label="Повторите пароль"
+            id="confirm-password"
+            placeholder="Password"
+            type="password"
+            {...field}
+          />
+        )}
+      />
+      <Controller
+        name="role"
+        control={control}
+        render={({ field }) => (
+          <select id="role" {...field}>
+            <option value="teacher">Учитель</option>
+            <option value="student">Студент</option>
+          </select>
+        )}
+      />
+      {errors.confirmPassword && <ErrorMessage>{errors.confirmPassword.message}</ErrorMessage>}
+      {errors.root && <ErrorMessage>{errors.root.message}</ErrorMessage>}
+      <Button>Зарегистрироваться</Button>
+    </Form>
+  );
+}

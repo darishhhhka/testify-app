@@ -1,0 +1,34 @@
+.button {
+  background-color: var(--black-blue);
+  height: 46px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+/* .fullfill {
+  background-color: var(--black-grey);
+  color: white;
+} */
+
+/* .outline {
+  border: 1px var(--black-grey) solid;
+  color: var(--black-grey);
+  background-color: #fff;
+} */
+
+/* .green {
+  background-color: rgb(126, 205, 126);
+}
+
+.red {
+  background-color: rgb(214, 110, 110);
+} */

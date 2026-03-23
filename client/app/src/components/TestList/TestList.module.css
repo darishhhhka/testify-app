@@ -1,0 +1,19 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.testList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.titles {
+  font-weight: 600;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  font-size: 18px;
+  text-align: center;
+}

@@ -1,0 +1,13 @@
+.inputWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: var(--grey-icon);
+}
+
+.input {
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid var(--grey);
+  padding-left: 14px;
+}

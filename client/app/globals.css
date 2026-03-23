@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100..900&family=Titillium+Web:wght@200;300;400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  /* font-family: var(--font-family); */
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--light-grey);
+}
+
+.container {
+  padding: 0 30px;
+}
+
+:root {
+  --background: #ffffff;
+  --light-red: rgb(254 242 242);
+  --blue: #1e88e5;
+  --light-blue: rgb(239 246 255);
+  --black-blue: rgb(37 99 235);
+  --black-grey: rgb(32, 32, 32);
+  --grey-icon: #474747;
+  --grey: #e8e6e6;
+  --light-grey: rgb(249 250 251);
+  --font-family: 'Roboto', sans-serif;
+  --error-color: #dc2626;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
