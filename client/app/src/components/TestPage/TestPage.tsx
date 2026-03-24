@@ -1,4 +1,3 @@
-import { type Test } from '../../store/models/testModel';
 import Card from '../Card/Card';
 import style from './TestPage.module.css';
 import QuestionCard from '../QuestionCard/QuestionCard';
@@ -9,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { PAGES } from '../../config/pages';
 import { AxiosError } from 'axios';
 import Title from '../Title/Title';
+import { Test } from '@/app/entities/test/types';
 
 export default function TestPage({ test, type }: { test: Test; type: 'passing' | 'check' }) {
   const router = useRouter();
