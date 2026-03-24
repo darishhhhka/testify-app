@@ -1,7 +1,7 @@
 'use client';
 
 import { useAppDispatch, useAppSelector } from '@/app/src/store/store';
-import { fetchTest } from '@/app/src/store/testSlice';
+import { fetchTest } from '@/app/entities/test/testSlice';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 

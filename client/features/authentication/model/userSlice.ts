@@ -1,9 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk, isAnyOf } from '@reduxjs/toolkit';
-import { type User } from './models/userModel';
-import { $authHost, $host } from '../api';
+import { $authHost, $host } from '../../../app/src/api';
 import { jwtDecode } from 'jwt-decode';
-import { ApiError } from 'next/dist/server/api-utils';
 import { AxiosError } from 'axios';
+import { Authorization, Registration, ResponseUser, User } from './types';
 
 const initialState: User = {
   id: null,
@@ -12,10 +11,6 @@ const initialState: User = {
   isAuth: false,
   checked: false,
 };
-
-type ResponseUser = { id: number; login: string; role: 'teacher' | 'student' };
-export type Auth = { login: string; password: string };
-type Registration = Auth & { role: 'teacher' | 'student' };
 
 export const registration = createAsyncThunk<ResponseUser, Registration, { rejectValue: string }>(
   'user/registration',
@@ -33,9 +28,9 @@ export const registration = createAsyncThunk<ResponseUser, Registration, { rejec
   },
 );
 
-export const login = createAsyncThunk<ResponseUser, Auth, { rejectValue: string }>(
+export const login = createAsyncThunk<ResponseUser, Authorization, { rejectValue: string }>(
   'user/login',
-  async ({ login, password }: Auth, { rejectWithValue }) => {
+  async ({ login, password }: Authorization, { rejectWithValue }) => {
     try {
       const { data } = await $host.post('api/user/login', { login, password });
       localStorage.setItem('token', data.token);

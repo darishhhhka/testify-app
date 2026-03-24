@@ -2,7 +2,7 @@
 
 import QuestionAttempt from '@/app/src/components/QuestionAttempt/QuestionAttempt';
 import { useAppDispatch, useAppSelector } from '@/app/src/store/store';
-import { fetchTestAttemp } from '@/app/src/store/testSlice';
+import { fetchTestAttemp } from '@/app/entities/test/testSlice';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 

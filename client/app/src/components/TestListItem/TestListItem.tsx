@@ -1,8 +1,8 @@
 import { PassedTests, CreatedTests } from '../../store/models/testModel';
 import style from './TestListItem.module.css';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import { deleteMyTest } from '../../store/testSlice';
-import { fetchTestAttemp } from '../../store/testSlice';
+import { deleteMyTest } from '../../../entities/test/testSlice';
+import { fetchTestAttemp } from '../../../entities/test/testSlice';
 import { useRouter } from 'next/navigation';
 import { PAGES } from '../../config/pages';
 import { Calendar, Users, Award, Trash2, Share2 } from 'lucide-react';

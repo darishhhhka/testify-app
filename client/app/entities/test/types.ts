@@ -57,3 +57,11 @@ export interface Answer {
   text: string;
   correct: boolean;
 }
+
+export interface RequestTest {
+  userId: number | null;
+}
+
+export interface RequestTestAttemp {
+  testAttempId: number;
+}

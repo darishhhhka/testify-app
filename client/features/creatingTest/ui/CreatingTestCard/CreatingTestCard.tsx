@@ -1,43 +1,42 @@
 'use client';
 
-import { $authHost } from '@/app/src/api';
 import Button from '@/app/src/components/Button/Button';
 import Card from '@/app/src/components/Card/Card';
-import Title from '@/app/src/components/Title/Title';
-import { useEffect, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import style from './CreatinfTest.module.css';
 import Input from '@/app/src/components/Input/Input';
+import Title from '@/app/src/components/Title/Title';
 import Text from '@/app/src/components/Text/Text';
-import { CreateTest } from './model/types';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useForm } from 'react-hook-form';
+import { shema } from '../../model/shema';
+import { CreateTest, createTestPayload, Theme } from '../../model/types';
+import style from './CreatingTestCard.module.css';
+import ErrorMessage from '@/app/src/components/Error/Error';
 
-export default function CreatingTest() {
-  const [themes, setThemes] = useState<{ id: number; theme: string }[]>([]);
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const response = await $authHost.get('/api/test/get-all-theme');
-        setThemes(response.data);
-      } catch (error) {
-        alert(error);
-      }
-    };
-    load();
-  }, []);
+type Props = { themes: Theme[]; handleCreate: (data: createTestPayload) => Promise<void> };
 
-  const { handleSubmit, control } = useForm<CreateTest>({
+export default function CreatingTestCard({ themes, handleCreate }: Props) {
+  const {
+    handleSubmit,
+    control,
+    setError,
+    formState: { errors },
+  } = useForm<CreateTest>({
+    resolver: yupResolver(shema),
     defaultValues: {
       name: '',
       themeId: '',
       countQustion: 10,
     },
   });
-
-  const submit = async (data: { name: string; themeId: string; countQustion: number }) => {
+  const onSubmit = async (data: createTestPayload) => {
     try {
-      await $authHost.post('api/test', data);
+      handleCreate(data);
     } catch (error) {
-      alert(error);
+      if (typeof error === 'string') {
+        setError('root', { type: 'validate', message: error });
+      } else {
+        setError('root', { type: 'validate', message: 'Неизвестная ошибка' });
+      }
     }
   };
   return (
@@ -50,7 +49,7 @@ export default function CreatingTest() {
         <div>
           <div className={style.wrap}>
             <Card>
-              <form className={style.form} action="" onSubmit={handleSubmit(submit)}>
+              <form className={style.form} action="" onSubmit={handleSubmit(onSubmit)}>
                 <div className={style.formItem}>
                   <Text>Название теста</Text>
                   <Controller
@@ -58,6 +57,7 @@ export default function CreatingTest() {
                     control={control}
                     render={({ field }) => <Input placeholder="Название теста" {...field} />}
                   />
+                  {errors.name?.message && <ErrorMessage>{errors.name?.message}</ErrorMessage>}
                 </div>
                 <div className={style.formItem}>
                   <Text>Тема теста</Text>
@@ -76,6 +76,9 @@ export default function CreatingTest() {
                       </select>
                     )}
                   />
+                  {errors.themeId?.message && (
+                    <ErrorMessage>{errors.themeId?.message}</ErrorMessage>
+                  )}
                 </div>
                 <div className={style.formItem}>
                   <Text>Количество вопросов</Text>
@@ -84,7 +87,11 @@ export default function CreatingTest() {
                     control={control}
                     render={({ field }) => <input type="range" max={15} {...field} />}
                   />
+                  {errors.countQustion?.message && (
+                    <ErrorMessage>{errors.countQustion?.message}</ErrorMessage>
+                  )}
                 </div>
+                {errors.root?.message && <ErrorMessage>{errors.root?.message}</ErrorMessage>}
                 <Button>Создать тест</Button>
               </form>
             </Card>

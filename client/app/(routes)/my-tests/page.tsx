@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../src/store/store';
-import { fetchMyTest } from '../../src/store/testSlice';
+import { fetchMyTest } from '../../entities/test/testSlice';
 import TestPage from '../../src/components/TestsListPage/TestListPage';
 
 export default function MyTests() {

@@ -8,9 +8,13 @@ import { useState } from 'react';
 import UserMenu from '../UserMenu/UserMenu';
 import { FileText, CheckCircle, Plus, LogOut, User } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-import { setIsAuth, setUser, setChecked } from '../../store/userSlice';
+import {
+  setIsAuth,
+  setUser,
+  setChecked,
+} from '../../../../features/authentication/model/userSlice';
 import { useAppDispatch, useAppSelector } from '../../store/store';
-import { deletedAllTests } from '../../store/testSlice';
+import { deletedAllTests } from '../../../entities/test/testSlice';
 
 export const Navbar = () => {
   const user = useAppSelector((state) => state.user);

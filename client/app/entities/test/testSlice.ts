@@ -1,7 +1,15 @@
 import { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CreatedTests, PassedTests, Test, TestAttemp, type TestSlice } from './models/testModel';
-import { $host } from '../api';
+import { $host } from '../../src/api';
+import {
+  CreatedTests,
+  PassedTests,
+  RequestTest,
+  RequestTestAttemp,
+  Test,
+  TestAttemp,
+  TestSlice,
+} from './types';
 
 const initialState: TestSlice = {
   created: { createdTest: {}, status: 'empty' },
@@ -9,10 +17,6 @@ const initialState: TestSlice = {
   currentTest: { id: null, name: '', questions: [] },
   currentTestAttempt: { id: null, score: null, test: { name: '', questions: [] } },
 };
-
-type RequestTest = { userId: number | null };
-
-type RequestTestAttemp = { testAttempId: number };
 
 export const fetchMyTest = createAsyncThunk<CreatedTests[], RequestTest, { rejectValue: string }>(
   'test/fetchMyTest',

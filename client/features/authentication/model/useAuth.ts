@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@/app/src/store/store';
 import { Authorization, Registration } from './types';
-import { login, registration } from '@/app/src/store/userSlice';
+import { login, registration } from '@/features/authentication/model/userSlice';
 import { useRouter } from 'next/navigation';
 import { PAGES } from '@/app/src/config/pages';
 

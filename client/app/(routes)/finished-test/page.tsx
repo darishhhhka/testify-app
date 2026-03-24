@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import TestPage from '../../src/components/TestsListPage/TestListPage';
 import { useAppDispatch, useAppSelector } from '../../src/store/store';
-import { fetchPassedTest } from '../../src/store/testSlice';
+import { fetchPassedTest } from '../../entities/test/testSlice';
 
 export default function FinishedTestPage() {
   const dispatch = useAppDispatch();
