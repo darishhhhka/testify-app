@@ -53,9 +53,9 @@
 ---
 
 <p align="center">
-  <img src="image.png" width="30%" />
-  <img src="image-1.png" width="30%" />
-  <img src="image-2.png" width="30%" />
+  <img src="assets/image.png" width="30%" />
+  <img src="assets/image-1.png" width="30%" />
+  <img src="assets/image-2.png" width="30%" />
 </p>
 
 ## Статус проекта
