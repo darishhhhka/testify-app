@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Test Platform
 
-## Getting Started
+Веб-приложение для создания и прохождения тестов с автоматической проверкой результатов, историей попыток и анализом ответов.
 
-First, run the development server:
+## Возможности
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Для преподавателя
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Создание тестов
+- Выбор темы и количества вопросов
+- Генерация теста из базы вопросов
+- Загрузка файла с вопросами и автоматический парсинг в базу данных
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Для пользователя
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+#### Прохождение тестов
 
-## Learn More
+- Прохождение тестов
+- Поддержка разных типов вопросов:
+  - Одиночный выбор (radio)
+  - Множественный выбор (checkbox)
+  - Текстовый ответ
 
-To learn more about Next.js, take a look at the following resources:
+#### Проверка и оценка
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Автоматическая проверка ответов
+- Частичные баллы за множественные ответы
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+#### Результаты
 
-## Deploy on Vercel
+- Просмотр результатов
+- Просмотр правильных ответов
+- Анализ ошибок
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Стек технологий
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Frontend
+
+- React
+- Next.js
+- TypeScript
+- React Hook Form
+- Yup (валидация)
+- CSS Modules
+
+### Backend
+
+- Node.js
+- Express
+- Sequelize
+- PostgreSQL
+
+---
+
+<p align="center">
+  <img src="image.png" width="30%" />
+  <img src="image-1.png" width="30%" />
+  <img src="image-2.png" width="30%" />
+</p>
+
+## Статус проекта
+
+Проект находится в активной разработке. Некоторые функции могут быть доработаны или изменены.

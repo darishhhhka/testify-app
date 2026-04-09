@@ -90,29 +90,33 @@ class TestController {
 
       const tests = await TestAttemp.findAll({
         where: { userId },
-
-        attributes: [
-          ["id", "testAttemptId"],
-          [sequelize.col("test.id"), "testId"],
-          [sequelize.col("test.name"), "name"],
-          ["score", "score"],
-          [sequelize.col("test.updatedAt"), "updatedAt"],
-          [
-            sequelize.literal(
-              `(SELECT COUNT(*) FROM "test-questions" WHERE "test-questions"."testId" = "test"."id")`,
-            ),
-            "countQuestion",
-          ],
-        ],
-
-        include: [
-          {
-            model: Test,
-            attributes: [],
-          },
-        ],
+        order: [["createdAt", "DESC"]],
       });
-      const result = tests.map((t) => ({ ...t.toJSON(), type: "passed" }));
+
+      const uniqueTests = new Map();
+
+      for (const t of tests) {
+        const testId = t.snapshot?.testId;
+
+        if (!uniqueTests.has(testId)) {
+          uniqueTests.set(testId, t);
+        }
+      }
+
+      const result = Array.from(uniqueTests.values()).map((t) => {
+        const snapshot = t.snapshot;
+
+        return {
+          testId: snapshot?.testId,
+          testAttemptId: t.id,
+          name: snapshot?.name,
+          score: t.score,
+          updatedAt: t.createdAt,
+          countQuestion: snapshot?.questions?.length || 0,
+          type: "passed",
+        };
+      });
+
       return res.json(result);
     } catch (error) {
       next(ApiError.internal(error.message));

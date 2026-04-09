@@ -1,10 +1,10 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useAppDispatch } from '../src/store/store';
+import { useAppDispatch } from '../shared/store/store';
 import { check } from '../../features/authentication/model/userSlice';
 import { redirect, usePathname } from 'next/navigation';
-import { PAGES } from '../src/config/pages';
+import { PAGES } from '../shared/config/pages';
 
 export default function InitApp() {
   const dispatch = useAppDispatch();

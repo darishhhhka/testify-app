@@ -1,24 +1,21 @@
 'use client';
 
-import { useAppDispatch, useAppSelector } from '@/app/src/store/store';
-import { fetchTest } from '@/app/entities/test/testSlice';
-import { useParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { usePassingTest } from './model/usePassingTest';
+import TestView from '@/app/entities/test/ui/TestView/TestView';
+import Button from '@/app/shared/ui/Button/Button';
 
 export default function PassingTestPage() {
-  const params = useParams<{ testId: string }>();
-  const dispatch = useAppDispatch();
-  const test = useAppSelector((state) => state.test.currentTest);
-  useEffect(() => {
-    const load = async () => {
-      try {
-        await dispatch(fetchTest({ testId: parseInt(params.testId) })).unwrap();
-      } catch (error) {
-        alert(error);
-      }
-    };
-    load();
-  }, [params.testId, dispatch]);
+  const { test, error, submitTest, selectAnswer, selectTextAnswer } = usePassingTest();
 
-  return <div>{params.testId}</div>;
+  return (
+    <>
+      <TestView
+        selectAnswer={selectAnswer}
+        selectTextAnswer={selectTextAnswer}
+        test={test}
+        type="passing"
+      />
+      <Button onClick={submitTest}>Отправить</Button>
+    </>
+  );
 }

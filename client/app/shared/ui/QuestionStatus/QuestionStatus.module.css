@@ -1,0 +1,36 @@
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.greenBg {
+  background-color: var(--light-green);
+  height: 40px;
+  width: 40px;
+}
+
+.redBg {
+  background-color: var(--light-red);
+  height: 40px;
+  width: 40px;
+}
+
+.red {
+  color: #dc2626;
+}
+
+.green {
+  color: #38a169;
+}
+
+.sm {
+  width: 20px;
+  height: 20px;
+}
+
+.md {
+  width: 25px;
+  height: 25px;
+}

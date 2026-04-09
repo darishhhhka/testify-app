@@ -1,10 +1,10 @@
-import Button from '@/app/src/components/Button/Button';
-import Card from '@/app/src/components/Card/Card';
-import Title from '@/app/src/components/Title/Title';
+import Button from '@/app/shared/ui/Button/Button';
+import Card from '@/app/shared/ui/Card/Card';
+import Title from '@/app/shared/ui/Title/Title';
 import { Upload } from 'lucide-react';
 import style from './UploadFileCard.module.css';
 import { useUploadFile } from '../../model/useUploadFile';
-import ErrorMessage from '@/app/src/components/Error/Error';
+import ErrorMessage from '@/app/shared/ui/Error/Error';
 
 export default function UploadFileCard() {
   const { handleSubmit, setFile, file, error } = useUploadFile();

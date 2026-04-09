@@ -17,6 +17,8 @@ export const shemaRegister = yup.object().shape({
 
 export const shemaLogin = yup.object().shape({
   login: yup.string().required('Введите логин'),
-  password: yup.string().required('Введите пароль'),
-  // .min(6, 'Пароль должен содержать минимум 6 символов'),
+  password: yup
+    .string()
+    .required('Введите пароль')
+    .min(6, 'Пароль должен содержать минимум 6 символов'),
 });

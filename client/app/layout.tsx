@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { ReduxProvider } from './src/store/reduxProvider';
-import { Header } from './src/components/Header/Header';
-import { useAppDispatch } from './src/store/store';
+import { ReduxProvider } from './shared/store/reduxProvider';
+import { Header } from './widgets/Header/Header';
+import { useAppDispatch } from './shared/store/store';
 import InitApp from './init/InitApp';
+import { styleText } from 'util';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,7 +34,9 @@ export default function RootLayout({
           <div>
             <InitApp />
             <Header />
-            <div className="container">{children}</div>
+            <div className="wrap">
+              <div className="container">{children}</div>
+            </div>
           </div>
         </ReduxProvider>
       </body>

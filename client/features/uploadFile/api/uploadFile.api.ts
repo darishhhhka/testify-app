@@ -1,4 +1,4 @@
-import { $authHost } from '@/app/src/api';
+import { $authHost } from '@/app/shared/api';
 
 export const submitFile = async (formData: FormData) => {
   try {

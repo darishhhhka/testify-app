@@ -1,0 +1,16 @@
+.answer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+}
+
+.right {
+  border: 1px solid var(--green);
+  background-color: var(--light-green);
+}
+
+.error {
+  border: 1px solid var(--error-color);
+  background-color: var(--light-red);
+}

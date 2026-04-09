@@ -1,11 +1,11 @@
 import { Controller, useForm } from 'react-hook-form';
 import style from './AuthorizationCard.module.css';
-import Button from '../../../../app/src/components/Button/Button';
+import Button from '../../../../app/shared/ui/Button/Button';
 import Form from '../Form/Form';
-import Input from '@/app/src/components/Input/Input';
+import Input from '@/app/shared/ui/Input/Input';
 import { Authorization } from '../../model/types';
 import { useAuth } from '../../model/useAuth';
-import ErrorMessage from '@/app/src/components/Error/Error';
+import ErrorMessage from '@/app/shared/ui/Error/Error';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { shemaLogin } from '../../model/shema';
 

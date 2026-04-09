@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk, isAnyOf } from '@reduxjs/toolkit';
-import { $authHost, $host } from '../../../app/src/api';
+import { $authHost, $host } from '../../../app/shared/api';
 import { jwtDecode } from 'jwt-decode';
 import { AxiosError } from 'axios';
 import { Authorization, Registration, ResponseUser, User } from './types';
@@ -12,9 +12,13 @@ const initialState: User = {
   checked: false,
 };
 
-export const registration = createAsyncThunk<ResponseUser, Registration, { rejectValue: string }>(
+export const registration = createAsyncThunk<
+  ResponseUser,
+  Omit<Registration, 'confirmPassword'>,
+  { rejectValue: string }
+>(
   'user/registration',
-  async ({ login, password, role }: Registration, { rejectWithValue }) => {
+  async ({ login, password, role }: Omit<Registration, 'confirmPassword'>, { rejectWithValue }) => {
     try {
       const { data } = await $host.post('api/user/registration', { login, password, role });
       localStorage.setItem('token', data.token);

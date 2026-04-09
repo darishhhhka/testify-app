@@ -27,3 +27,9 @@
   color: var(--blue);
   cursor: pointer;
 }
+
+.radioList {
+  display: flex;
+  flex: 1;
+  gap: 10px;
+}

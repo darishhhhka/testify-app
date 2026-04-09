@@ -11,23 +11,24 @@ import { Op } from "sequelize";
 
 class TestAttempController {
   async create(req, res, next) {
-    const t = await sequelize.transaction();
-
     try {
       const userAnswerForBd = [];
       const userId = req.user.id;
       const { testId, answer } = req.body;
-      const test = Test.findByPk(testId);
-      const questionsId = Object.keys(answer);
+      const test = await Test.findByPk(testId);
 
       const questions = await Question.findAll({
-        include: [{ model: Answer }],
-        where: { id: { [Op.in]: questionsId } },
-        transaction: t,
+        include: [
+          { model: Answer },
+          {
+            model: Test,
+            where: { id: testId },
+            attributes: [],
+            through: { attributes: [] },
+          },
+        ],
       });
-
       let score = 0;
-
       const snapshotQuestions = [];
 
       for (const q of questions) {
@@ -36,6 +37,7 @@ class TestAttempController {
 
         if (
           q.type === "text" &&
+          typeof userAnswer === "string" &&
           q.answers[0].text.trim().toLowerCase() ===
             userAnswer.trim().toLowerCase()
         ) {
@@ -59,6 +61,8 @@ class TestAttempController {
               }
             });
 
+            localScore = Math.round(localScore * 100) / 100;
+
             if (localScore > 0) {
               score += localScore;
               isCorrect = true;
@@ -81,12 +85,10 @@ class TestAttempController {
           id: q.id,
           question: q.question,
           type: q.type,
-
           answers: q.answers.map((a) => ({
             id: a.id,
             text: a.text,
           })),
-
           userAnswer: {
             value: userAnswer,
             isCorrect,
@@ -94,7 +96,12 @@ class TestAttempController {
         });
       }
 
-      // 🧠 СОБИРАЕМ SNAPSHOT
+      if (userAnswerForBd === undefined) {
+        userAnswerForBd.push({
+          isCorrect: false,
+        });
+      }
+
       const snapshot = {
         testId,
         name: test.name,
@@ -102,15 +109,12 @@ class TestAttempController {
         createdAt: new Date(),
       };
 
-      const testAttemp = await TestAttemp.create(
-        {
-          testId,
-          userId,
-          score: Math.round(score * 100) / 100,
-          snapshot,
-        },
-        { transaction: t },
-      );
+      const testAttemp = await TestAttemp.create({
+        testId,
+        userId,
+        score: Math.round(score * 100) / 100,
+        snapshot,
+      });
 
       await UserAnswer.bulkCreate(
         userAnswerForBd.map((a) => ({
@@ -121,20 +125,13 @@ class TestAttempController {
           value: a.value,
           isCorrect: a.isCorrect,
         })),
-        { transaction: t },
       );
-
-      await t.commit();
 
       return res.json({ message: "ok" });
     } catch (error) {
-      await t.rollback();
-      console.log("errror", error);
-
       next(ApiError.internal(error.message));
     }
   }
-
   async getTestAttempt(req, res, next) {
     try {
       const { testAttempId } = req.query;

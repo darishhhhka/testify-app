@@ -1,10 +1,11 @@
 'use client';
 
-import QuestionAttempt from '@/app/src/components/QuestionAttempt/QuestionAttempt';
-import { useAppDispatch, useAppSelector } from '@/app/src/store/store';
-import { fetchTestAttemp } from '@/app/entities/test/testSlice';
+import { useAppDispatch, useAppSelector } from '@/app/shared/store/store';
+import { fetchTestAttemp } from '@/app/entities/test/model/testSlice';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
+import TestView from '@/app/entities/test/ui/TestView/TestView';
+import { Award } from 'lucide-react';
 
 export default function PassedTestAteempt() {
   const { attempId } = useParams<{ attempId: string }>();
@@ -22,20 +23,7 @@ export default function PassedTestAteempt() {
     loadAttempt();
   }, [attempId, dispatch]);
 
-  return (
-    <div>
-      <h1>{attempt.test?.name}</h1>
-      <div>
-        {attempt.test?.questions.map(({ id, question, answers, userAnswer }) => (
-          <QuestionAttempt
-            key={id}
-            id={id}
-            question={question}
-            answers={answers}
-            userAnswer={userAnswer}
-          />
-        ))}
-      </div>
-    </div>
-  );
+  if (!attempt.test) return;
+
+  return <TestView test={attempt.test} score={attempt.score} type="review" />;
 }

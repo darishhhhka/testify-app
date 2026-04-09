@@ -1,4 +1,4 @@
-import { $authHost } from '@/app/src/api';
+import { $authHost } from '@/app/shared/api';
 import { createTestPayload } from '../model/types';
 
 export const getThemes = async () => {

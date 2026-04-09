@@ -1,8 +1,8 @@
 import React, { FormHTMLAttributes } from 'react';
 import style from './Form.module.css';
 import Link from 'next/link';
-import { PAGES } from '@/app/src/config/pages';
-import Title from '@/app/src/components/Title/Title';
+import { PAGES } from '@/app/shared/config/pages';
+import Title from '@/app/shared/ui/Title/Title';
 
 type Props = {
   type: 'registration' | 'authorization';

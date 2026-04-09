@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import TestPage from '../../src/components/TestsListPage/TestListPage';
-import { useAppDispatch, useAppSelector } from '../../src/store/store';
-import { fetchPassedTest } from '../../entities/test/testSlice';
+import { useAppDispatch, useAppSelector } from '../../shared/store/store';
+import { fetchPassedTest } from '../../entities/test/model/testSlice';
+import TestListPage from '../../entities/test/ui/TestsListPage/TestListPage';
 
 export default function FinishedTestPage() {
   const dispatch = useAppDispatch();
@@ -26,7 +26,7 @@ export default function FinishedTestPage() {
 
   return (
     <div>
-      <TestPage title="Пройденные тесты" tests={passsedTests.passedTests} />
+      <TestListPage title="Пройденные тесты" tests={passsedTests.passedTests} />
     </div>
   );
 }

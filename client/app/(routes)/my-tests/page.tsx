@@ -1,9 +1,9 @@
 'use client';
 
 import { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../src/store/store';
-import { fetchMyTest } from '../../entities/test/testSlice';
-import TestPage from '../../src/components/TestsListPage/TestListPage';
+import { useAppSelector, useAppDispatch } from '../../shared/store/store';
+import { fetchMyTest } from '../../entities/test/model/testSlice';
+import TestListPage from '../../entities/test/ui/TestsListPage/TestListPage';
 
 export default function MyTests() {
   const { id, checked } = useAppSelector((state) => state.user);
@@ -25,7 +25,7 @@ export default function MyTests() {
 
   return (
     <div>
-      <TestPage title="Мои тесты" tests={test.createdTest} />
+      <TestListPage title="Мои тесты" tests={test.createdTest} />
     </div>
   );
 }

@@ -1,8 +1,10 @@
+'use client';
+
 import style from './AuthContainer.module.css';
-import { usePathname } from 'next/navigation';
-import { PAGES } from '../../app/src/config/pages';
+import { PAGES } from '../../app/shared/config/pages';
 import AuthorizationCard from './ui/AuthorizationCard/AuthorizationCard';
 import RegistrationCard from './ui/RegistrationCard/RegistrationCard';
+import { usePathname } from 'next/navigation';
 
 export default function AuthContainer() {
   const pathname = usePathname();

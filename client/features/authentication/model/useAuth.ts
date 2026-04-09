@@ -1,8 +1,8 @@
-import { useAppDispatch } from '@/app/src/store/store';
+import { useAppDispatch } from '@/app/shared/store/store';
 import { Authorization, Registration } from './types';
 import { login, registration } from '@/features/authentication/model/userSlice';
 import { useRouter } from 'next/navigation';
-import { PAGES } from '@/app/src/config/pages';
+import { PAGES } from '@/app/shared/config/pages';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -11,7 +11,6 @@ export const useAuth = () => {
     try {
       if (type === 'login') {
         await dispatch(login(data)).unwrap();
-        router.push(PAGES.MY_TESTS);
       }
       if (type === 'register' && 'confirmPassword' in data) {
         if (data.password !== data.confirmPassword) {
@@ -20,8 +19,8 @@ export const useAuth = () => {
         await dispatch(
           registration({ login: data.login, password: data.password, role: data.role }),
         );
-        router.push(PAGES.MY_TESTS);
       }
+      router.push(PAGES.FINISH_TEST);
     } catch (error) {
       throw error;
     }

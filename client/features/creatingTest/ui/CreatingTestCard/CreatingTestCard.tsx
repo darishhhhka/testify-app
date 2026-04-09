@@ -1,16 +1,16 @@
 'use client';
 
-import Button from '@/app/src/components/Button/Button';
-import Card from '@/app/src/components/Card/Card';
-import Input from '@/app/src/components/Input/Input';
-import Title from '@/app/src/components/Title/Title';
-import Text from '@/app/src/components/Text/Text';
+import Button from '@/app/shared/ui/Button/Button';
+import Card from '@/app/shared/ui/Card/Card';
+import Input from '@/app/shared/ui/Input/Input';
+import Title from '@/app/shared/ui/Title/Title';
+import Text from '@/app/shared/ui/Text/Text';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from 'react-hook-form';
 import { shema } from '../../model/shema';
 import { CreateTest, createTestPayload, Theme } from '../../model/types';
 import style from './CreatingTestCard.module.css';
-import ErrorMessage from '@/app/src/components/Error/Error';
+import ErrorMessage from '@/app/shared/ui/Error/Error';
 
 type Props = { themes: Theme[]; handleCreate: (data: createTestPayload) => Promise<void> };
 

@@ -1,12 +1,15 @@
 import { Controller, useForm } from 'react-hook-form';
-import Input from '../../../../app/src/components/Input/Input';
-import Button from '../../../../app/src/components/Button/Button';
+import Input from '../../../../app/shared/ui/Input/Input';
+import Button from '../../../../app/shared/ui/Button/Button';
 import Form from '../Form/Form';
 import { Registration } from '../../model/types';
 import { useAuth } from '../../model/useAuth';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { shemaRegister } from '../../model/shema';
-import ErrorMessage from '@/app/src/components/Error/Error';
+import ErrorMessage from '@/app/shared/ui/Error/Error';
+import RegistrationRadio from '@/app/shared/ui/RegistrationRadio/RegistrationRadio';
+import style from './RegistrationCard.module.css';
+import Text from '@/app/shared/ui/Text/Text';
 
 export default function RegistrationCard() {
   const {
@@ -20,10 +23,10 @@ export default function RegistrationCard() {
       login: '',
       password: '',
       confirmPassword: '',
-      role: undefined,
+      role: 'student',
     },
   });
-
+  const roles = ['teacher', 'student'] as const;
   const submit = useAuth();
 
   const submitHandle = async (data: Registration) => {
@@ -40,6 +43,27 @@ export default function RegistrationCard() {
 
   return (
     <Form type="registration" onSubmit={handleSubmit(submitHandle)}>
+      <Text>Я регистрируюсь как</Text>
+      <Controller
+        name="role"
+        control={control}
+        render={({ field }) => (
+          <div className={style.radioList}>
+            {roles.map((r) => (
+              <RegistrationRadio
+                key={r}
+                type="radio"
+                id={r}
+                role={r}
+                value={r}
+                onChange={field.onChange}
+                checked={field.value === r}
+              />
+            ))}
+          </div>
+        )}
+      />
+      {errors.role && <ErrorMessage>{errors.role.message}</ErrorMessage>}
       <Controller
         name="login"
         control={control}
@@ -69,16 +93,6 @@ export default function RegistrationCard() {
             type="password"
             {...field}
           />
-        )}
-      />
-      <Controller
-        name="role"
-        control={control}
-        render={({ field }) => (
-          <select id="role" {...field}>
-            <option value="teacher">Учитель</option>
-            <option value="student">Студент</option>
-          </select>
         )}
       />
       {errors.confirmPassword && <ErrorMessage>{errors.confirmPassword.message}</ErrorMessage>}

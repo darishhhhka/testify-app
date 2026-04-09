@@ -11,22 +11,31 @@ body {
   background-color: var(--light-grey);
 }
 
+.wrap {
+  display: flex;
+  justify-content: center;
+}
+
 .container {
-  padding: 0 30px;
+  padding: 30px 0;
+  width: 70%;
 }
 
 :root {
   --background: #ffffff;
   --light-red: rgb(254 242 242);
   --blue: #1e88e5;
-  --light-blue: rgb(239 246 255);
-  --black-blue: rgb(37 99 235);
+  --light-blue: #eff6ff;
+  --black-blue: #2563eb;
   --black-grey: rgb(32, 32, 32);
   --grey-icon: #474747;
   --grey: #e8e6e6;
   --light-grey: rgb(249 250 251);
   --font-family: 'Roboto', sans-serif;
   --error-color: #dc2626;
+  --light-red: #fef2f2;
+  --green: #38a169;
+  --light-green: #f2fdf5;
 }
 
 @media (prefers-color-scheme: dark) {
