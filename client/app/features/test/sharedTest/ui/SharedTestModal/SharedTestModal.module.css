@@ -1,0 +1,47 @@
+.wrap {
+  min-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nav {
+  display: flex;
+  height: 50px;
+}
+
+.btn {
+  flex: 1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.active {
+  border-bottom: 2px solid var(--blue);
+}
+
+.linkWrap {
+  display: flex;
+  gap: 10px;
+}
+
+.link {
+  overflow-x: hidden;
+  white-space: nowrap;
+  max-width: 300px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  background-color: var(--light-grey);
+}
+
+.qrWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  align-self: center;
+}

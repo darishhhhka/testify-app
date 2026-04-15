@@ -14,6 +14,7 @@ export function authMiddleware(req, res, next) {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
 
     req.user = decoded;
+    console.log("Хедеры", req.user);
     next();
   } catch (e) {
     res.status(401).json("Пользователь не авторизован");

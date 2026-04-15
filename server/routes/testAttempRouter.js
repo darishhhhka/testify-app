@@ -5,5 +5,6 @@ const router = new Router();
 
 router.post("/", authMiddleware, TestAttempController.create);
 router.get("/", TestAttempController.getTestAttempt);
+router.get("/statistics", TestAttempController.getStatisticsTest);
 
 export { router as testAttempRouter };

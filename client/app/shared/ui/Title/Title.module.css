@@ -1,4 +1,15 @@
 .title {
-  font-size: 32px;
   font-weight: 400;
+}
+
+.lg {
+  font-size: 32px;
+}
+
+.md {
+  font-size: 28px;
+}
+
+.sm {
+  font-size: 24px;
 }

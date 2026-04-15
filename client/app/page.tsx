@@ -1,6 +1,6 @@
 'use client';
 
-import Auth from '../features/authentication/AuthContainer';
+import Auth from './features/authentication/AuthContainer';
 
 export default function Home() {
   return (

@@ -10,6 +10,7 @@ const User = sequelize.define("user", {
 
 const Test = sequelize.define("test", {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
+  sharedToken: { type: DataTypes.UUID, defaultValue: DataTypes.UUIDV4 },
   name: { type: DataTypes.STRING },
 });
 

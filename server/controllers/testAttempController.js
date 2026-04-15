@@ -103,7 +103,7 @@ class TestAttempController {
       }
 
       const snapshot = {
-        testId,
+        sharedToken: test.dataValues.sharedToken,
         name: test.name,
         questions: snapshotQuestions,
         createdAt: new Date(),
@@ -171,6 +171,12 @@ class TestAttempController {
     } catch (error) {
       next(ApiError.internal(error.message));
     }
+  }
+
+  async getStatisticsTest(req, res, nex) {
+    const { sharedToken } = req.query;
+
+    const data = await TestAttemp.findAll({where: {}});
   }
 }
 

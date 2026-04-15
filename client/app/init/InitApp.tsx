@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useAppDispatch } from '../shared/store/store';
-import { check } from '../../features/authentication/model/userSlice';
+import { check } from '../features/authentication/model/userSlice';
 import { redirect, usePathname } from 'next/navigation';
 import { PAGES } from '../shared/config/pages';
 

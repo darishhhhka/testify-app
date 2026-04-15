@@ -1,4 +1,4 @@
-import CreatingTest from '@/features/creatingTest/ui/CreatingTestPage';
+import CreatingTest from '@/app/features/creatingTest/ui/CreatingTestPage';
 
 export default function CreatingTestsPage() {
   return <CreatingTest />;

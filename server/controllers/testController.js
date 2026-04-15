@@ -8,14 +8,8 @@ import { generateTest } from "../utils/generateTest.js";
 class TestController {
   async create(req, res) {
     const userId = req.user.id;
-    console.log(userId, "юзер айди");
     const { name, countQustion, themeId } = req.body;
-    console.log("TThemeId: ", themeId);
-
     generateTest(countQustion, themeId, userId, name);
-    console.log("countQustion", countQustion);
-
-    // const test = await Test.create({ usesrId, name });
     return res.json({ message: "ok" });
   }
 
@@ -42,7 +36,6 @@ class TestController {
   async getAllTheme(req, res, next) {
     try {
       const userId = req.user.id;
-      console.log("userIdinController", userId);
 
       const themes = await Theme.findAll({
         where: { userId },
@@ -125,13 +118,25 @@ class TestController {
 
   async getTestById(req, res, next) {
     try {
-      const { testId, includeAnswers } = req.query;
+      const userId = req.user.id;
+      const userRole = req.user.role;
+
+      const { sharedToken, includeAnswers } = req.query;
+
+      const test = await Test.findOne({ where: { sharedToken } });
+      console.log("есть ли ответы", includeAnswers);
+
+      if (includeAnswers !== undefined) {
+        if (userRole !== "teacher" || test.dataValues.userId !== userId) {
+          throw ApiError.internal("Нет доступа");
+        }
+      }
 
       const answersAttributes =
         includeAnswers === "true" ? ["id", "text", "correct"] : ["id", "text"];
 
-      const test = await Test.findOne({
-        where: { id: testId },
+      test = await Test.findOne({
+        where: { sharedToken },
         include: [
           {
             model: Question,

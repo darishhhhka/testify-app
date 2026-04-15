@@ -6,4 +6,5 @@ export const PAGES = {
   CREATE_TEST: '/create-test',
   UPLOAD_FILE: '/upload-file',
   CREATING_TEST: '/creating-test',
+  PASSING_TEST: '/passing-test',
 };

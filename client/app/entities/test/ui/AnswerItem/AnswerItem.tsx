@@ -1,7 +1,7 @@
 import Card from '@/app/shared/ui/Card/Card';
 import { Answer } from '../../model/types';
 import Text from '@/app/shared/ui/Text/Text';
-import { usePassingTest } from '@/features/passingTest/model/usePassingTest';
+import { usePassingTest } from '@/app/features/passingTest/model/usePassingTest';
 import QuestionStatus from '@/app/shared/ui/QuestionStatus/QuestionStatus';
 import style from './AnswerItem.module.css';
 

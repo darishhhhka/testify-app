@@ -1,0 +1,13 @@
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px;
+  color: var(--grey-icon);
+  border-radius: 8px;
+}
+
+.shareIcon:hover {
+  background-color: var(--light-blue);
+  color: var(--blue);
+}

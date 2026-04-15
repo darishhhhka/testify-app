@@ -21,7 +21,6 @@ export default function MyTests() {
     };
     loadTest();
   }, [id, dispatch, checked, test.status]);
-  console.log('Шаг 1', test.createdTest);
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { $host } from '../../../shared/api';
+import { $authHost, $host } from '../../../shared/api';
 import {
   CreatedTests,
   PassedTests,
@@ -14,7 +14,7 @@ import {
 const initialState: TestSlice = {
   created: { createdTest: {}, status: 'empty' },
   passed: { passedTests: {}, status: 'empty' },
-  currentTest: { id: null, name: '', questions: [] },
+  currentTest: { id: null, sharedToken: '', name: '', questions: [] },
   currentTestAttempt: { id: null, score: null, test: { name: '', questions: [] } },
 };
 
@@ -35,21 +35,25 @@ export const fetchMyTest = createAsyncThunk<CreatedTests[], RequestTest, { rejec
 
 export const fetchTest = createAsyncThunk<
   Test,
-  { testId: number; includeAnswers?: boolean },
+  { sharedToken: string; includeAnswers?: boolean },
   { rejectValue: string }
 >(
   'test/fetchTest',
   async (
-    { testId, includeAnswers }: { testId: number; includeAnswers?: boolean },
+    { sharedToken, includeAnswers }: { sharedToken: string; includeAnswers?: boolean },
     { rejectWithValue },
   ) => {
     try {
-      const { data } = await $host.get(
-        `api/test/test?testId=${testId}&includeAnswers=${includeAnswers}`,
+      console.log('Заупскаем запрос');
+
+      const { data } = await $authHost.get(
+        `api/test/test?sharedToken=${sharedToken}&includeAnswers=${includeAnswers}`,
       );
       return data;
     } catch (error) {
       if (error instanceof AxiosError) {
+        console.log('Ошибка в слайсе', error.response?.data.message);
+
         return rejectWithValue(error.response?.data.message);
       }
       return rejectWithValue('Ошибка загрузки теста');
@@ -112,12 +116,6 @@ const testSlice = createSlice({
   name: 'test',
   initialState,
   reducers: {
-    // setTests: (state, actions:PayloadAction<Test[]>) => {
-    //     actions.payload.map(test => {
-    //         state.created[test.id] = {name: test.name, createdAt: test.createdAt.split('T')[0], result: test.result}
-    //     })
-    // },
-
     deletedAllTests: (state) => {
       state.created.createdTest = {};
       state.passed.passedTests = {};
@@ -154,6 +152,7 @@ const testSlice = createSlice({
       }),
       builder.addCase(fetchTest.fulfilled, (state, actions) => {
         state.currentTest.id = actions.payload.id;
+        state.currentTest.sharedToken = actions.payload.sharedToken;
         state.currentTest.name = actions.payload.name;
         state.currentTest.questions = actions.payload.questions;
         console.log('Отработал феч', actions.payload);

@@ -1,19 +1,18 @@
 import style from './TestListItem.module.css';
 import { useAppDispatch, useAppSelector } from '../../../../shared/store/store';
 import { deleteMyTest } from '../../model/testSlice';
-import { fetchTestAttemp } from '../../model/testSlice';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { PAGES } from '../../../../shared/config/pages';
 import { Calendar, Users, Award, Trash2, Share2 } from 'lucide-react';
 import { CreatedTests, PassedTests } from '@/app/entities/test/model/types';
-import Card from '@/app/shared/ui/Card/Card';
+import DeleteTest from '@/app/features/test/deleteTest/ui/DeleteTestButton';
+import SharedTest from '@/app/features/test/sharedTest/ui/SharedTest/SharedTest';
 
 type Props = { test: (CreatedTests & { type: 'created' }) | (PassedTests & { type: 'passed' }) };
 
 export default function TestListItem({ test }: Props) {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const userRole = useAppSelector((state) => state.user.role);
 
   const deleted = async (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -38,7 +37,7 @@ export default function TestListItem({ test }: Props) {
 
   const openTest = async () => {
     if (test.type === 'created') {
-      router.push(`${PAGES.MY_TESTS}/${test.id.toString()}`);
+      router.push(`${PAGES.MY_TESTS}/${test.sharedToken}`);
     }
   };
 
@@ -48,6 +47,16 @@ export default function TestListItem({ test }: Props) {
     }
     if (test.type === 'passed') {
       openTestAttempt();
+    }
+  };
+
+  const copyLink = async (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (test.type === 'created') {
+      const link = `${window.location.origin}${PAGES.PASSING_TEST}/${test.sharedToken}`;
+      console.log(link);
+
+      await navigator.clipboard.writeText(link);
     }
   };
 
@@ -79,12 +88,8 @@ export default function TestListItem({ test }: Props) {
       </div>
       {test.type !== 'passed' && (
         <div className={style.actions}>
-          <div className={`${style.icon} ${style.deletedIcon}`} onClick={deleted}>
-            <Trash2 size={22} />
-          </div>
-          <div className={`${style.icon} ${style.shareIcon}`}>
-            <Share2 size={22} />
-          </div>
+          <DeleteTest testId={test.id} />
+          <SharedTest sharedToken={test.sharedToken} name={test.name} />
         </div>
       )}
     </div>

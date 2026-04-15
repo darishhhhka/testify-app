@@ -17,7 +17,6 @@ router.post(
   upload.single("file"),
   TestController.uploadTest,
 );
-router.get("/test", TestController.getTestById);
-
+router.get("/test", authMiddleware, TestController.getTestById);
 
 export { router as testRouter };

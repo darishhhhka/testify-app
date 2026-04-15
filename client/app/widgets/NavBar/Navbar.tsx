@@ -8,7 +8,7 @@ import { useState } from 'react';
 import UserMenu from '../UserMenu/UserMenu';
 import { FileText, CheckCircle, Plus, LogOut, User } from 'lucide-react';
 import { usePathname, useRouter } from 'next/navigation';
-import { setIsAuth, setUser, setChecked } from '../../../features/authentication/model/userSlice';
+import { setIsAuth, setUser, setChecked } from '../../features/authentication/model/userSlice';
 import { useAppDispatch, useAppSelector } from '../../shared/store/store';
 import { deletedAllTests } from '../../entities/test/model/testSlice';
 

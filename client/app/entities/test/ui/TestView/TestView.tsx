@@ -8,7 +8,7 @@ import Text from '@/app/shared/ui/Text/Text';
 import Line from '@/app/shared/ui/Line/Line';
 
 type Props = {
-  test: Test;
+  test: Omit<Test, 'sharedToken'>;
   type: 'passing' | 'check' | 'review';
   score?: number | null;
   selectAnswer?: (

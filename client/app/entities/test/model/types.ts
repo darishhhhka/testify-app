@@ -11,6 +11,7 @@ export type PassedTestList = Record<number, Omit<PassedTests, 'testId'>>;
 
 export interface CreatedTests {
   id: number;
+  sharedToken: string;
   name: string;
   createdAt: string;
   userId: number;
@@ -29,11 +30,12 @@ export interface PassedTests {
 export interface TestAttemp {
   id: number | null;
   score: number | null;
-  test: Omit<Test, 'id'> | null;
+  test: Omit<Test, 'id' | 'sharedToken'> | null;
 }
 
 export interface Test {
   id?: number | null;
+  sharedToken: string;
   name: string;
   questions: Question[];
 }
